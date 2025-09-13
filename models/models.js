@@ -24,7 +24,8 @@ const Book = mongoose.model("Book", bookSchema);
 const borrowedBookSchema = new mongoose.Schema({
   bookId: { type: mongoose.Schema.Types.ObjectId, ref: "Book", required: true },
   student: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  overdue: { type: Boolean, default: false }
+  overdue: { type: Boolean, default: false },
+  media: {type:String, default:""}
 }, { timestamps: true });
 
 const Borrowed = mongoose.model("Borrowed", borrowedBookSchema);

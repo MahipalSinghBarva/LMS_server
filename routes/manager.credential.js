@@ -6,7 +6,7 @@ let managerrouter= express.Router()
 let arr=["BookAdmin", "student", "admin", "manager"];
 
 let multer=require("multer");
-const { videostorage } = require("../cloudinary/cloudcoonfi");
+const { videostorage, Imagestorage } = require("../cloudinary/cloudcoonfi");
 
 
 
@@ -70,7 +70,7 @@ res.json({success:true, message:"admin has been update"})
 
 const upload = multer({ storage: videostorage });
 
-managerrouter.post("/upload",quizmiddle(...arr),upload.single("videoFile"),async (req, res) => {
+managerrouter.post("/upload-video",quizmiddle(...arr.slice(2)),upload.single("videoFile"),async (req, res) => {
     try {
       const { title } = req.body;
 
@@ -96,3 +96,27 @@ managerrouter.post("/upload",quizmiddle(...arr),upload.single("videoFile"),async
 
 
 
+const uploadImage = multer({ storage: Imagestorage});
+
+managerrouter.post("/upload-image", quizmiddle(...arr.slice(2)), uploadImage.single("imageFile"), async (req, res) => {
+  try {
+    const { title } = req.body;
+
+    const newAnnouncement = new Anouncement({
+      title,
+      announcedBy: req.user._id,
+      media: [
+        {
+          url: req.file.path,
+          type: "image"
+        }
+      ]
+    });
+
+    await newAnnouncement.save();
+    res.status(201).json({ message: "Image announcement created", data: newAnnouncement });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});

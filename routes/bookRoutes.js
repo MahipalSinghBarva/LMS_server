@@ -3,11 +3,10 @@ const bookRouter = express.Router();
 const { Book } = require("../models/models.js");
 const quizmiddle = require("../middleware/middleware.js");
 
-
-bookRouter.post(
-    "/add-book",
-    quizmiddle("BookAdmin", "manager", "admin"),
-    async (req, res) => {
+let multer= require("multer");
+const { Imagestorage } = require("../cloudinary/cloudcoonfi.js");
+let upload= multer({storage:Imagestorage});
+bookRouter.post("/add-book",quizmiddle("BookAdmin", "manager", "admin"), upload.single("image"),  async (req, res) => {
         try {
             const { name, authorName, status } = req.body;
 
@@ -17,7 +16,7 @@ bookRouter.post(
                 });
             }
 
-            const book = new Book({ name, authorName, status });
+            const book = new Book({ name, authorName, status , media:req.file.path});
             await book.save();
 
             res.status(201).json({
