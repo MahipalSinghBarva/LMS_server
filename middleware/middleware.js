@@ -37,7 +37,7 @@ function quizmiddle(...allowedrole){
           let newaccessToken = jwt.sign(
             { userId: refreshdecoded.userId, role: refreshdecoded.role },
             'shhhhh',
-            { expiresIn: 300 }
+            { expiresIn: "7" }
           );
 
           req.user = refreshdecoded.userId;
