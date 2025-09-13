@@ -1,11 +1,17 @@
 var jwt = require('jsonwebtoken');
 
 function quizmiddle(...allowedrole){
+
     
   return (req, res, next) => {
     try {
       let token = req.headers.authorization?.split(" ")[1];
-        console.log(token)
+//         console.log(token)
+  return (req, res, next) => {
+    try {
+      let token = req.headers.authorization?.split(" ")[1];
+
+
       if (!token) {
         return res.status(401).json({ message: "Access token missing" });
       }
@@ -57,3 +63,4 @@ function quizmiddle(...allowedrole){
 }
 
 module.exports = quizmiddle;
+
