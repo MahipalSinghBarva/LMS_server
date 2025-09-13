@@ -92,4 +92,4 @@ let Anouncement= mongoose.model("Anounce", announcementSchema);
 
 
 
-module.exports = { Usermodel, Book, Borrowed, Seat, AssignSeat, Fee , Maintance};
+module.exports = { Usermodel, Book, Borrowed, Seat, AssignSeat, Fee, Maintance, Anouncement};
