@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String },
   email: { type: String, unique: true, required: true },
 
   password: { type: String, required: true },
@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   feesStatus: { type: String, enum: ["pending", "completed"], default: "pending" }
 });
 
-const User = mongoose.model("User", userSchema);
+const Usermodel = mongoose.model("Usermodel", userSchema);
 
 
 const bookSchema = new mongoose.Schema({
@@ -92,4 +92,4 @@ let Anouncement= mongoose.model("Anounce", announcementSchema);
 
 
 
-module.exports = { User, Book, Borrowed, Seat, AssignSeat, Fee , Maintance};
+module.exports = { Usermodel, Book, Borrowed, Seat, AssignSeat, Fee , Maintance};
